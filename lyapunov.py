@@ -45,22 +45,26 @@ delta0 = delta/np.linalg.norm(delta)
 L=0
 n=10
 
+lyap = np.zeros(n)
 i=0
 while i < n:
     THETAA, T = solver.pendulum(solver.p_derivatives, THETA[-1, 0]+delta0[0], THETA[-1, 1]+delta0[1], THETA[-1, 2]+delta0[2], THETA[-1, 3]+delta0[3], t_max, h, m1, m2, g, l)
     THETA, T = solver.pendulum(solver.p_derivatives, THETA[-1, 0], THETA[-1, 1], THETA[-1, 2], THETA[-1, 3], t_max, h, m1, m2, g, l)
     delta = THETAA[-1,:] - THETA[-1,:]
-    n = np.linalg.norm(delta)
-    L += log(n)
-    delta0 = delta/np.linalg.norm(delta)
+    norm = np.linalg.norm(delta)
+    L += log(norm)
+    delta0 = delta/norm
+    lyap[i] = L
     i += 1
 
 
-lambda_max = L/t_max
-#lyap_max = lyap/T
-#print(lyap_max)
+lambda_max = L/(t_max*n) #attention, donné en log
 print(lambda_max)
-#plt.plot(lyap,T )
+lyap_max = lyap/(t_max*n)
+t = [0,1,2,3,4,5,6,7,8,9]
+plt.plot(t,lyap_max) 
+plt.show()
+
 
 
 ###energy
@@ -72,3 +76,9 @@ def energy(theta, m1, m2, g, l):
     V = -(m1+m2)*l*g*math.cos(th1) - m2*l*g*math.cos(th2)
     T = .5*m1*(l*dth1)**2 + .5*m2*((l*dth1)**2 + (l*dth2)**2 + 2*l*l*dth1*dth2*math.cos(th1-th2))
     return T + V
+
+H = np.zeros(len(T))
+for (i,t) in enumerate(T):
+    H[i] = energy(THETA[i,:], m1, m2, g, l)
+plt.plot(T,H)
+plt.show()
