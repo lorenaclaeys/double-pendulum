@@ -37,6 +37,9 @@ def grapher(l, THETA, h):
         return line, time_text
 
     anim = animation.FuncAnimation(fig, animate, range(1, len(THETA)), interval=h*1000, blit=True, init_func=init)
+    plt.plot(x1,y1, linewidth = 0.1)
+    plt.plot(x2,y2, linewidth = 0.2)
+    plt.show()
     return anim
 
 ######graph for 2 double pendulums
