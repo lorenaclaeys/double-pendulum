@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import solver
 
-###graph for 1 pendulum
+#graph for 1 pendulum
 def grapher(l, THETA, h):
     #cartesian coordinates
     x1 = l * np.sin(THETA[:,0])
@@ -39,8 +39,11 @@ def grapher(l, THETA, h):
     anim = animation.FuncAnimation(fig, animate, range(1, len(THETA)), interval=h*1000, blit=True, init_func=init)
     plt.plot(x1,y1, linewidth = 0.1)
     plt.plot(x2,y2, linewidth = 0.2)
+    plt.xlabel("x")
+    plt.ylabel("y")
     plt.show()
     return anim
+
 
 ######graph for 2 double pendulums
 def grapher_lyap(l, THETA, THETAA, h):
