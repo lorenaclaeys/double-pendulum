@@ -18,8 +18,8 @@ m2 = 1.
 l=1.
 ###1st pendulum
 #angle & derivatives (rad)
-th1 = .5*(math.pi)
-th2 = .0*(math.pi)
+th1 = (math.pi)
+th2 = .4*(math.pi)
 dth1 = 0
 dth2 = 0
 #perturbation (rad)
@@ -112,10 +112,10 @@ plt.show()
 
 #question 6
 
-th1= np.linspace(1,20,20)
-H_tot = np.zeros(int(20/1))
+th1= np.linspace(0,math.pi*0.5,90)
+H_tot = np.zeros(int(90/1))
 H = np.zeros(len(T))
-for k in range(0,20,1): #1 to 10
+for k in range(0,90,1): #1 to 10
     #data from solver
     THETA, T = solver.pendulum(solver.p_derivatives, th1[k], th2, 0, 0, t_max, h, m1, m2, g, l)
     THETAA, T = solver.pendulum(solver.p_derivatives, th1[k] + delta1, th2 + delta2, 0, 0, t_max, h, m1, m2, g, l)
@@ -123,8 +123,8 @@ for k in range(0,20,1): #1 to 10
         H[i] = energy(THETA[i,:], m1, m2, g, l)
     H_tot[k] = H[0]
 
-lambda_max_tot= np.zeros(20)
-for k in range(0,20,1): #1 to 10
+lambda_max_tot= np.zeros(90)
+for k in range(0,90,1): #1 to 10
     THETA, T = solver.pendulum(solver.p_derivatives, th1[k], th2, 0, 0, t_max, h, m1, m2, g, l)
     THETAA, T = solver.pendulum(solver.p_derivatives, th1[k] + delta1, th2 + delta2, 0, 0, t_max, h, m1, m2, g, l)
     ########lyapunov exponent
@@ -152,5 +152,5 @@ for k in range(0,20,1): #1 to 10
     lambda_max_tot[k]= lambda_max
 print("h",H_tot,"l",lambda_max_tot)
 
-plt.plot(H_tot,lambda_max_tot)
+plt.plot(th1,lambda_max_tot)
 plt.show()
