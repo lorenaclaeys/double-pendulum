@@ -17,7 +17,7 @@ import numpy as np
 
 #energy
 def energy(theta, m1, m2, g, l):
-    """function that returns the energy of the 2 double pendulums"""
+    """function that returns the energy of the double pendulum"""
     th1 = theta[0]
     th2 = theta[1]
     dth1 = theta[2]
