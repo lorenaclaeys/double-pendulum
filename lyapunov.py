@@ -111,6 +111,27 @@ plt.show()
 
 
 #question 6
+N = 100
+Lyapunov = []
+Energie = []
+for k in range(N):
+    th1 = (1*math.pi)/ (N-k)
+    th2 = 0
+    THETA, T = Solver.pendulum(Solver.p_derivatives, th1, th2, 0, 0, t_max, h, m1, m2, g, l)
+    THETAA, T = Solver.pendulum(Solver.p_derivatives, th1 + delta1, th2 + delta2, 0, 0, t_max, h, m1, m2, g, l)
+    H = np.zeros(len(T))
+    for (i,t) in enumerate(T):
+        H[i] = energy(THETA[i,:], m1, m2, g, l)
+    H_average = np.amin(H)
+    Energie.append(H_average)
+    Lyapunov.append(lyap(THETAA, THETA, delta))
+
+plt.xlabel("Energy")
+plt.ylabel("Lyapunov exponent")
+plt.plot(Energie, Lyapunov)
+plt.show()
+
+#Ancienne question 6 que tu peux supprimer
 
 th1= np.linspace(0,math.pi*0.5,90)
 H_tot = np.zeros(int(90/1))
