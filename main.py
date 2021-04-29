@@ -94,7 +94,7 @@ if __name__ == "__main__":
     N = 100
     plt.xlabel("Energy(Joules)")
     plt.ylabel("Lyapunov exponent")
-    plt.title("Lyapunov evolution in function of the ernegy")
+    plt.title("Lyapunov evolution in function of the energy")
     Energy, Lyapunov = lyapunov.lyap_evolution(delta1, delta2, delta0, delta, L, n, N, t_max, h, m1, m2, g, l)
     plt.plot(Energy, Lyapunov)
     plt.show()
